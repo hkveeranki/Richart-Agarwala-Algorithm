@@ -10,7 +10,7 @@ message generalisedClock {
   repeated clock clocks = 1;
 }
 
-message Result {
+message Message {
   int32 id = 1;
   generalisedClock clock = 2;
 }
