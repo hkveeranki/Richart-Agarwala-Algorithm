@@ -5,9 +5,8 @@
 import java.rmi.*;
 
 public interface Nodedef extends Remote {
-    void LockRequest(byte[] info);
+    void LockRequest(int sender_id, VectorClock sender_clock);
 
-    void UnlockRequest(byte[] info);
 
-    void SendAckRequest(byte[] info);
+    void SendAckRequest(int sender_id);
 }
