@@ -2,11 +2,11 @@
  * Created by harry7 on 14/9/16.
  */
 
-import java.util.Comparator;
+import java.io.Serializable;
 
 import static java.lang.Long.max;
 
-public class VectorClock {
+public class VectorClock implements Serializable {
     long[] clock;
     int n;
 
@@ -19,7 +19,14 @@ public class VectorClock {
 
     public void update_clock(VectorClock new_clock) {
         for (int i = 0; i < this.n; i++) {
-            this.clock[i] = max(this.clock[i], new_clock.clock[i]) + 1;
+            this.clock[i] = max(this.clock[i], new_clock.clock[i]);
         }
+    }
+    public boolean lessthan(VectorClock new_clock){
+        for(int i=0;i<this.n;i++){
+            if(new_clock.clock[i] > this.clock[i])
+                return true;
+        }
+        return false;
     }
 }
