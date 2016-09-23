@@ -8,4 +8,4 @@ $(TARGET): src/Node.java src/VectorClock.java src/Nodedef.java
 	$(CC) $(FLAGS) src/*.java src/assignment/MessageProto.java
 	
 clean:
-	rm bin/assignment/*.class rm *.out
+	rm -f bin/assignment/*.class bin/*.class *.out

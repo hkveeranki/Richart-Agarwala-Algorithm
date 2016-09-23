@@ -151,11 +151,12 @@ public class Node implements Nodedef {
             System.out.println("Cannot Bind the Stub");
             System.exit(-1);
         }
+        int i = 1;
         /* Running the given loop */
-        Lock tmp_lock = new ReentrantLock();
-        for (int i = 0; i < 100; i++) {
+        while(i<=100) {
             lock();
-            System.out.println("I am " + my_id + " Acquired " + i + " thLock" + " at " + lock_clock.toString());
+            int counter = 1;
+            System.out.println("I am " + my_id + " Acquired " + i + " th Lock with lock  " + lock_clock.toString());
             try {
                 BufferedReader br = new BufferedReader(new FileReader(output_file));
                 String last = "", current = "";
@@ -163,9 +164,12 @@ public class Node implements Nodedef {
                     last = current;
                 }
                 String data;
-                int counter = 1;
                 if (!last.equals(""))
                     counter = (Integer.valueOf(last.split(":")[0]) + 1);
+                /* if (counter == 101){
+                    unlock();
+                    break;
+                } */
                 data = counter + ":" + my_id + ":" + lock_clock.toString();
                 PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(output_file, true)));
                 out.println(data);
@@ -179,11 +183,13 @@ public class Node implements Nodedef {
                 System.exit(-1);
             } finally {
                 unlock();
-                System.out.println("This is unlock for " + i + "th request at " + my_id + "with clock " + lock_clock.toString());
+                System.out.println("This is unlock for " + i + " th request to write "+counter+" at " + my_id + " with lock " + lock_clock.toString());
             }
-            sleep(500);
+            i++;
+            sleep(1000);
+
         }
-        System.out.println("I " + my_id + " am done");
+        System.out.println("I " + my_id + " am done with my "+my_clock.toString());
     }
 
     private static void lock() throws RemoteException, MalformedURLException, InvalidProtocolBufferException {

@@ -34,23 +34,17 @@ public class VectorClock implements Serializable {
     }
 
     public boolean lessthan(VectorClock new_clock, int my_id, int sender_id) {
-/*         int cnt = 0;
+        int cnt = 0;
         for (int i = 0; i < this.n; i++) {
-            if (new_clock.get_clock(i) > this.get_clock(i))
+            if (new_clock.get_clock(i) < this.get_clock(i))
                 return true;
-            else if (new_clock.get_clock(i) == this.get_clock(i)) {
+            else if (new_clock.get_clock(i) > this.get_clock(i)) {
+                return false;
+            } else {
                 cnt++;
             }
         }
-        if (cnt == n) {
-            System.err.println("Got equal");
-            return my_id < sender_id;
-        }
-        return false;
-        */
-        if (new_clock.get_clock(sender_id) < this.get_clock(my_id)) return false;
-        else if (new_clock.get_clock(sender_id) > this.get_clock(my_id)) return true;
-        else return my_id < sender_id;
+        return my_id < sender_id;
     }
 
     public String toString() {
